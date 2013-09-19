@@ -1,0 +1,6 @@
+History.md
+Manifest.txt
+README.md
+Rakefile
+lib/tagutils.rb
+lib/tagutils/version.rb

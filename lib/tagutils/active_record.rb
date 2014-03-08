@@ -4,6 +4,7 @@ module ActiveRecord
   class Base
 
     def self.has_many_tags( opts={} )
+      puts "  [TagUtils.has_many_tags] adding taggings n tags has_many assocs to model >#{name}<"
       has_many :taggings, class_name: 'TagDb::Model::Tagging', :as      => :taggable
       has_many :tags,     class_name: 'TagDb::Model::Tag',     :through => :taggings
     end

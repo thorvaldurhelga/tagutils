@@ -12,8 +12,8 @@ tagutils gems - tag utilities (tag, taggings, tag list, etc.)
 
 ~~~
 class Country < ActiveRecord::Base
-  has_many :taggings, :class_name => 'TagDb::Model::Tagging', :as      => :taggable
-  has_many :tags,     :class_name => 'TagDb::Model::Tag',     :through => :taggings
+  has_many :taggings, class_name: 'TagDb::Model::Tagging', :as      => :taggable
+  has_many :tags,     class_name: 'TagDb::Model::Tag',     :through => :taggings
 end
 ~~~
 

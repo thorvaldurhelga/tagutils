@@ -15,7 +15,7 @@ Hoe.spec 'tagutils' do
 
   # switch extension to .markdown for gihub formatting
   self.readme_file  = 'README.md'
-  self.history_file = 'History.md'
+  self.history_file = 'HISTORY.md'
 
   self.extra_deps = [
     ['logutils', '>= 0.5']

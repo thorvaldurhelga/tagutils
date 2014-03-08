@@ -1,6 +1,8 @@
-History.md
+HISTORY.md
 Manifest.txt
 README.md
 Rakefile
 lib/tagutils.rb
+lib/tagutils/models.rb
+lib/tagutils/schema.rb
 lib/tagutils/version.rb

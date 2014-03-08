@@ -7,9 +7,23 @@ tagutils gems - tag utilities (tag, taggings, tag list, etc.)
 * gem   :: [rubygems.org/gems/tagutils](https://rubygems.org/gems/tagutils)
 * rdoc  :: [rubydoc.info/gems/tagutils](http://rubydoc.info/gems/tagutils)
 
+
 ## Usage
 
-TBD
+~~~
+class Country < ActiveRecord::Base
+  has_many :taggings, :as      => :taggable, :class_name => 'TagDb::Model::Tagging'
+  has_many :tags,     :through => :taggings, :class_name => 'TagDb::Model::Tag'
+end
+~~~
+
+or
+
+~~~
+class Country < ActiveRecord::Base
+  has_many_tags
+end
+~~~
 
 
 ## Real World Usage
@@ -20,6 +34,27 @@ TBD
 
 
 ## Alternatives
+
+
+### Tags
+
+- [gutentag](https://github.com/pat/gutentag)
+
+~~~
+create_table :taggings do |t|
+  t.integer    :tag_id,        null: false
+  t.integer    :taggable_id,   null: false
+  t.string     :taggable_type, null: false
+  t.timestamps
+end
+
+create_table :tags do |t|
+  t.string      :name,           null: false
+  t.integer     :taggings_count, null: false, default: 0
+  t.timestamps
+end
+~~~
+
 
 - [acts_as_taggable_on](https://github.com/mbleigh/acts-as-taggable-on)
 
@@ -122,6 +157,36 @@ end
 
 - [Ruby Toolbook - Rails Tagging Category](https://www.ruby-toolbox.com/categories/rails_tagging)
 
+
+### Categories
+
+- [categoryz3](https://github.com/tscolari/categoryz3)
+
+~~~
+create_table :categoryz3_categories do |t|
+  t.string :name
+  t.references :parent
+  t.integer :items_count , default: 0
+  t.integer :child_items_count , default: 0
+  t.integer :childrens_count , default: 0
+  t.timestamps
+end
+
+create_table :categoryz3_items do |t|
+  t.references :category, null: false
+  t.references :categorizable, polymorphic: true, null: false
+  t.timestamps
+end
+
+create_table :categoryz3_child_items do |t|
+  t.references :category, null: false
+  t.references :categorizable, polymorphic: true, null: false
+  t.references :master_item, null: false
+  t.timestamps
+end
+~~~
+
+- [acts_as_category](https://github.com/wuwx/acts_as_category)
 
 
 ## License

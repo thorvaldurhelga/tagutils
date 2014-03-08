@@ -3,6 +3,8 @@ Manifest.txt
 README.md
 Rakefile
 lib/tagutils.rb
-lib/tagutils/models.rb
+lib/tagutils/active_record.rb
+lib/tagutils/models/tag.rb
+lib/tagutils/models/tagging.rb
 lib/tagutils/schema.rb
 lib/tagutils/version.rb

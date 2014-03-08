@@ -11,14 +11,15 @@ Hoe.spec 'tagutils' do
   self.urls    = ['https://github.com/rubylibs/tagutils']
 
   self.author  = 'Gerald Bauer'
-  self.email   = 'webslideshow@googlegroups.com'
+  self.email   = 'openmundi@googlegroups.com'
 
   # switch extension to .markdown for gihub formatting
   self.readme_file  = 'README.md'
   self.history_file = 'HISTORY.md'
 
   self.extra_deps = [
-    ['logutils', '>= 0.5']
+    ['activerecord' ],
+    ['logutils', '>= 0.6']
   ]
 
   self.licenses = ['Public Domain']

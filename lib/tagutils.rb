@@ -10,7 +10,11 @@ require 'logutils'
 require 'tagutils/version'  # let it always go first
 
 require 'tagutils/schema'
-require 'tagutils/models'
+require 'tagutils/models/tag'
+require 'tagutils/models/tagging'
+
+
+require 'tagutils/active_record'   # -- adds has_many_tags macro
 
 
 module TagUtils
@@ -28,6 +32,12 @@ end  # module TagUtils
 
 
 module TagDb
+
+  #####
+  # add convenience module alias in plural
+  #   e.g. lets you use include TagDb::Models
+  Models = Model
+
   def self.create
     CreateDb.new.up
     ## WorldDb::Model::Prop.create!( key: 'db.schema.world.version', value: VERSION )
@@ -35,14 +45,12 @@ module TagDb
 
   # delete ALL records (use with care!)
   def self.delete!
-    ## fix: use Deleter (see sportdb etc.)
     puts '*** deleting tag/tagging table records/data...'
     Model::Tagging.delete_all
     Model::Tag.delete_all
-  end # method delete!
+  end
 
   def self.tables
-    ## fix: use Stats class (see sportdb etc.)
     puts "#{Model::Tag.count} tags"
     puts "#{Model::Tagging.count} taggings"
   end
@@ -52,4 +60,3 @@ end # module TagDb
 
 
 puts TagUtils.banner    # say hello
-

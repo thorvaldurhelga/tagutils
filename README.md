@@ -12,8 +12,8 @@ tagutils gems - tag utilities (tag, taggings, tag list, etc.)
 
 ~~~
 class Country < ActiveRecord::Base
-  has_many :taggings, :as      => :taggable, :class_name => 'TagDb::Model::Tagging'
-  has_many :tags,     :through => :taggings, :class_name => 'TagDb::Model::Tag'
+  has_many :taggings, :class_name => 'TagDb::Model::Tagging', :as      => :taggable
+  has_many :tags,     :class_name => 'TagDb::Model::Tag',     :through => :taggings
 end
 ~~~
 
@@ -65,9 +65,9 @@ end
 
 create_table :taggings do |t|
   t.references :tag
-  t.references :taggable, :polymorphic => true
-  t.references :tagger,   :polymorphic => true
-  t.string     :context,  :limit => 128
+  t.references :taggable, polymorphic: true
+  t.references :tagger,   polymorphic: true
+  t.string     :context,  limit: 128
   t.datetime   :created_at
 end
 ~~~
@@ -79,14 +79,14 @@ end
 
 ~~~
 create_table :tags do |t|
-  t.string :name, :default => ''
-  t.string :kind, :default => ''
+  t.string :name, default: ''
+  t.string :kind, default: ''
 end
 
 create_table :taggings do |t|
   t.integer :tag_id
 
-  t.string  :taggable_type, :default => ''
+  t.string  :taggable_type, default: ''
   t.integer :taggable_id
 end
 ~~~
@@ -102,8 +102,8 @@ end
 
 create_table :taggings do |t|
   t.references :tag
-  t.references :taggable, :polymorphic => true
-  t.references :tagger,   :polymorphic => true
+  t.references :taggable, polymorphic: true
+  t.references :tagger,   polymorphic: true
   t.string     :context
   t.datetime   :created_at
 end
@@ -121,15 +121,15 @@ end
 
 ~~~
 create_table :tags do |t|
-  t.column :name,           :string
-  t.column :taggings_count, :integer, :default => 0, :null => false
+  t.string  :name
+  t.integer :taggings_count,  null: false, default: 0
 end
  
 create_table :taggings do |t|
-  t.column :tag_id, :integer
-  t.column :taggable_id, :integer
-  t.column :taggable_type, :string
-  t.column :user_id, :integer
+  t.integer :tag_id
+  t.integer :taggable_id
+  t.string  :taggable_type
+  t.integer :user_id
 end 
 ~~~
 
@@ -140,15 +140,15 @@ end
 
 ~~~
 create_table :tags do |t|
-  t.column :name, :string
+  t.string :name
 end
-    
+
 create_table :taggings do |t|
-  t.column :tag_id,        :integer
-  t.column :taggable_id,   :integer
-  t.column :taggable_type, :string
-      
-  t.column :created_at,    :datetime
+  t.integer  :tag_id
+  t.integer  :taggable_id
+  t.string   :taggable_type
+
+  t.datetime :created_at
 end
 ~~~
 
@@ -164,24 +164,24 @@ end
 
 ~~~
 create_table :categoryz3_categories do |t|
-  t.string :name
+  t.string     :name
   t.references :parent
-  t.integer :items_count , default: 0
-  t.integer :child_items_count , default: 0
-  t.integer :childrens_count , default: 0
+  t.integer    :items_count,       default: 0
+  t.integer    :child_items_count, default: 0
+  t.integer    :childrens_count,   default: 0
   t.timestamps
 end
 
 create_table :categoryz3_items do |t|
-  t.references :category, null: false
-  t.references :categorizable, polymorphic: true, null: false
+  t.references :category,      null: false
+  t.references :categorizable, null: false, polymorphic: true
   t.timestamps
 end
 
 create_table :categoryz3_child_items do |t|
-  t.references :category, null: false
-  t.references :categorizable, polymorphic: true, null: false
-  t.references :master_item, null: false
+  t.references :category,      null: false
+  t.references :categorizable, null: false, polymorphic: true
+  t.references :master_item,   null: false
   t.timestamps
 end
 ~~~

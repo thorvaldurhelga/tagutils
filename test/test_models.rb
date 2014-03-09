@@ -21,6 +21,40 @@ class TestModels < MiniTest::Unit::TestCase
     assert_equal 0, Movie.count
   end
 
+
+  def test_with
+    tag = Tag.create!( key: 'key', name: 'name' )
+    cat = Category.create!( key: 'key', name: 'name' )
+
+    ## add 1st movie
+    movie = Movie.create!( key: 'key', name: 'name' )
+  
+    movie.tags       << tag
+    movie.categories << cat
+
+    assert_equal 1, Movie.with_tag( 'key' ).count
+    assert_equal 0, Movie.with_tag( 'xxx' ).count
+
+    assert_equal 1, Movie.joins(:categories).count
+    assert_equal 1, Movie.joins(:categories).where( 'categories.key' => 'key' ).count
+
+    assert_equal 1, Movie.with_category( 'key' ).count
+    assert_equal 0, Movie.with_category( 'xxx' ).count
+
+    ## add another (2nd) movie
+    movie2 = Movie.create!( key: 'key2', name: 'name2' )
+
+    movie2.tags       << tag
+    movie2.categories << cat
+
+    assert_equal 2, Movie.with_tag( 'key' ).count
+    assert_equal 0, Movie.with_tag( 'xxx' ).count
+
+    assert_equal 2, Movie.with_category( 'key' ).count
+    assert_equal 0, Movie.with_category( 'xxx' ).count
+  end
+
+
   def test_assocs
     tag = Tag.new( key: 'key', name: 'name' )
     assert_equal 0, tag.taggings.count

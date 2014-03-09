@@ -9,6 +9,9 @@ class Categorization < ActiveRecord::Base
   belongs_to :category
   belongs_to :categorizable, :polymorphic => true
 
+  ## validates :category,      presence: true
+  ## validates :categorizable, presence: true
+
 end   # class Categorization
 
 

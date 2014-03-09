@@ -13,14 +13,14 @@ tagutils gems - tag utilities (tag, taggings, tag list, etc.)
 ### Schema / Tables
 
 Use `TagDb.create` to build the `tags` and `taggings` tables
-and `Category.create` to build the `categories` and `categorizations` tables.
+and `CategoryDb.create` to build the `categories` and `categorizations` tables.
 Example:
 
 ~~~
 # ...
 TagDb.create
 # ...
-Category.create
+CategoryDb.create
 # ...
 ~~~
 
@@ -30,7 +30,7 @@ Category.create
 Add the associations yourself with the standard `has_many` class macro:
 
 ~~~
-class Country < ActiveRecord::Base
+class Movie < ActiveRecord::Base
   # ...
   has_many :taggings, class_name: 'TagDb::Model::Tagging', :as      => :taggable
   has_many :tags,     class_name: 'TagDb::Model::Tag',     :through => :taggings
@@ -44,13 +44,27 @@ end
 or use the built-in class macro shortcuts:
 
 ~~~
-class Country < ActiveRecord::Base
+class Movie < ActiveRecord::Base
   # ...
   has_many_tags
   # ...
   has_many_categories
   # ...
 end
+~~~
+
+The `has_many_tags` also adds the following methods:
+
+~~~
+Movie.with_tag( 'doc' )
+# e.g. scope :with_tag, ->(tag_key){ joins(:tags).where('tags.key' => tag_key) }
+~~~
+
+The `has_many_categories` also adds the following methods:
+
+~~~
+Movie.with_category( 'doc' )
+# e.g. scope :with_category, ->(category_key){ joins(:categories).where('categories.key' => category_key) }
 ~~~
 
 
@@ -210,6 +224,21 @@ create_table :categoryz3_child_items do |t|
   t.references :category,      null: false
   t.references :categorizable, null: false, polymorphic: true
   t.references :master_item,   null: false
+  t.timestamps
+end
+~~~
+
+- [categorizable](https://github.com/boof/categorizable)
+
+~~~
+create_table :categories do |t|
+  t.string     :name, null: false
+  t.timestamps
+end
+
+create_table :categorizations do |t|
+  t.references :category,      null: false
+  t.references :categorizable, null: false, :polymorphic: true
   t.timestamps
 end
 ~~~

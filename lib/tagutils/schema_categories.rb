@@ -42,4 +42,4 @@ add_index :categorizations, [:categorizable_id, :categorizable_type, :category_i
 
 end  # class CreateDb
 
-end # module CategorDb
+end # module CategoryDb

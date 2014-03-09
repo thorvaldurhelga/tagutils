@@ -5,23 +5,51 @@ tagutils gems - tag utilities (tag, taggings, tag list, etc.)
 * home  :: [github.com/rubylibs/tagutils](https://github.com/rubylibs/tagutils)
 * bugs  :: [github.com/rubylibs/tagutils/issues](https://github.com/rubylibs/tagutils/issues)
 * gem   :: [rubygems.org/gems/tagutils](https://rubygems.org/gems/tagutils)
-* rdoc  :: [rubydoc.info/gems/tagutils](http://rubydoc.info/gems/tagutils)
+* rdoc  :: [rubydoc.info/gems/tagutils](http://rubydoc.info/gems/tagutils) or [rubydoc.info/github/rubylibs/tagutils](http://rubydoc.info/github/rubylibs/tagutils) (HEAD)
 
 
 ## Usage
 
+### Schema / Tables
+
+Use `TagDb.create` to build the `tags` and `taggings` tables
+and `Category.create` to build the `categories` and `categorizations` tables.
+Example:
+
+~~~
+# ...
+TagDb.create
+# ...
+Category.create
+# ...
+~~~
+
+
+### Models
+
+Add the has many associations yourself 
+
 ~~~
 class Country < ActiveRecord::Base
+  # ...
   has_many :taggings, class_name: 'TagDb::Model::Tagging', :as      => :taggable
   has_many :tags,     class_name: 'TagDb::Model::Tag',     :through => :taggings
+  # ...
+  has_many :categorizations, class_name: 'CategoryDb::Model::Categorizations', :as      => :categorizable
+  has_many :categories,      class_name: 'CategoryDb::Model::Category',        :through => :categorizations
+  # ...
 end
 ~~~
 
-or
+or use the built-in class macro shortcuts:
 
 ~~~
 class Country < ActiveRecord::Base
+  # ...
   has_many_tags
+  # ...
+  has_many_categories
+  # ...
 end
 ~~~
 

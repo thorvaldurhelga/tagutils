@@ -12,7 +12,8 @@ create_table :tags do |t|
   t.string  :name    # todo: make required?  -- note: was title formerly
   t.integer :grade, null: false, default: 1  # grade/tier e.g. 1/2/3 for now
 
-  ## todo: add parent or similar for hierachy (for tag stacks/packs)
+  # parent used for hierachy (e.g. lets you use tag stacks/packs etc.)
+  t.references :parent
 
   # todo: use only t.datetime :created_at (do we get ar magic? is updated used/needed??)
   t.timestamps

@@ -17,8 +17,8 @@ class Category < ActiveRecord::Base
   # validates :key,  :format => { :with    => /^([a-z]|[a-z][a-z0-9_ ]*[a-z0-9])$/,
   #                              :message => 'expected one or more lowercase letters a-z or 0-9 digits or space or underscore' }
 
-  scope :by_key,   order( 'key desc' )
-  scope :by_name,  order( 'name desc' )
+  scope :by_key,  -> { order( 'key desc' ) }
+  scope :by_name, -> { order( 'name desc' ) }
 
   before_save :on_before_save
 
@@ -34,7 +34,7 @@ class Category < ActiveRecord::Base
   def title()       name;              end
   def title=(value) self.name = value; end
   
-  scope :by_title, order( 'name desc' )  ### depreciated ??? - use by_name
+  scope :by_title, -> { order( 'name desc' ) }  ### depreciated ??? - use by_name
 
 
 end   # class Category

@@ -7,11 +7,10 @@ class CreateDb < ActiveRecord::Migration
   def up
 
 create_table :categories do |t|
-  t.string  :key,   null: false
-  t.string  :slug,  null: false
-  t.string  :name,  null: false
-
-  ## todo: add parent or similar for hierachy 
+  t.string     :key,   null: false
+  t.string     :slug,  null: false
+  t.string     :name,  null: false
+  t.references :parent
   # todo: use only t.datetime :created_at (do we get ar magic? is updated used/needed??)
   t.timestamps
 end

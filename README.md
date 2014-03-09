@@ -5,7 +5,7 @@ tagutils gems - tag utilities (tag, taggings, tag list, etc.)
 * home  :: [github.com/rubylibs/tagutils](https://github.com/rubylibs/tagutils)
 * bugs  :: [github.com/rubylibs/tagutils/issues](https://github.com/rubylibs/tagutils/issues)
 * gem   :: [rubygems.org/gems/tagutils](https://rubygems.org/gems/tagutils)
-* rdoc  :: [rubydoc.info/gems/tagutils](http://rubydoc.info/gems/tagutils) or [rubydoc.info/github/rubylibs/tagutils](http://rubydoc.info/github/rubylibs/tagutils) (HEAD)
+* rdoc  :: [rubydoc.info/gems/tagutils](http://rubydoc.info/gems/tagutils)
 
 
 ## Usage
@@ -27,7 +27,7 @@ Category.create
 
 ### Models
 
-Add the has many associations yourself 
+Add the associations yourself with the standard `has_many` class macro:
 
 ~~~
 class Country < ActiveRecord::Base

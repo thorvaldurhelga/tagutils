@@ -25,9 +25,13 @@ create_table :categorizations do |t|
   t.timestamps
 end
 
-add_index :categorizations, :category_id
-add_index :categorizations, [:categorizable_id, :categorizable_type]
-add_index :categorizations, [:categorizable_id, :categorizable_type, :category_id], unique: true
+###
+# note: use name prop
+#  too avoid error index name too long (e.g. sqlite requires <64 chars)
+
+add_index :categorizations, :category_id, name: 'categorizations_cats_idx'
+add_index :categorizations, [:categorizable_id, :categorizable_type], name: 'categorizations_idx'
+add_index :categorizations, [:categorizable_id, :categorizable_type, :category_id], unique: true, name: 'categorizations_unique_idx'
 
   end # method up
 

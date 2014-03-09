@@ -27,13 +27,18 @@ require 'logutils/db'   # NB: explict require required for LogDb (not automatic)
 
 
 
-Tag      = TagDb::Model::Tag
-Tagging  = TagDb::Model::Tagging
+Tag            = TagDb::Model::Tag
+Tagging        = TagDb::Model::Tagging
+
+Category       = CategoryDb::Model::Category
+Categorization = CategoryDb::Model::Categorization
 
 
 class Movie < ActiveRecord::Base
   has_many_tags
+  has_many_categories
 end
+
 
 class CreateMovieDb < ActiveRecord::Migration
 
@@ -74,6 +79,7 @@ def setup_in_memory_db
 
   LogDb.create
   TagDb.create
+  CategoryDb.create
   CreateMovieDb.new.up
 
 end

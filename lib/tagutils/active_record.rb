@@ -13,8 +13,8 @@ module CategoryDb
   module ClassMacros
     def has_many_categories( opts={} )
       puts "  [CategoryDb.has_many_categories] adding categorizations n category has_many assocs to model >#{name}<"
-      has_many :categorizations, class_name: 'CategoryDb::Model::Categorizations', :as      => :categorizable
-      has_many :categories,      class_name: 'CategoryDb::Model::Category',        :through => :categorizations
+      has_many :categorizations, class_name: 'CategoryDb::Model::Categorization', :as      => :categorizable
+      has_many :categories,      class_name: 'CategoryDb::Model::Category',       :through => :categorizations
     end
   end
 end

@@ -20,6 +20,7 @@ require 'logger'
 
 require 'active_record'
 
+
 # our own code
 
 require 'tagutils'
@@ -78,10 +79,11 @@ def setup_in_memory_db
   ## build schema
 
   LogDb.create
+  ConfDb.create
+
   TagDb.create
   CategoryDb.create
   CreateMovieDb.new.up
-
 end
 
 

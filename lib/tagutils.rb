@@ -2,7 +2,11 @@
 # 3rd party gems / libs
 
 require 'active_record'   ## todo: add sqlite3? etc.
+
+require 'props'
+require 'props/db'  # note: also use ConfDb (ConfDb::Model::Prop etc.)
 require 'logutils'
+require 'textutils'
 
 
 # our own code
@@ -17,8 +21,27 @@ require 'tagutils/schema_categories'
 require 'tagutils/models/category'
 require 'tagutils/models/categorization'
 
+module TagDb
+  VERSION = TagUtils::VERSION
+  #####
+  # add convenience module alias in plural
+  #   e.g. lets you use include TagDb::Models
+  Models = Model
+end
+
+module CategoryDb
+  VERSION = TagUtils::VERSION
+  #####
+  # add convenience module alias in plural
+  #   e.g. lets you use include TagDb::Models
+  Models = Model
+end
+
 
 require 'tagutils/active_record'   # -- adds has_many_tags, has_many_categories class macros
+
+require 'tagutils/readers/tag'
+
 
 
 module TagUtils
@@ -37,14 +60,9 @@ end  # module TagUtils
 
 module TagDb
 
-  #####
-  # add convenience module alias in plural
-  #   e.g. lets you use include TagDb::Models
-  Models = Model
-
   def self.create
     CreateDb.new.up
-    ## WorldDb::Model::Prop.create!( key: 'db.schema.world.version', value: VERSION )
+    ConfDb::Model::Prop.create!( key: 'db.schema.tag.version', value: VERSION )
   end
 
   # delete ALL records (use with care!)
@@ -63,14 +81,10 @@ end # module TagDb
 
 
 module CategoryDb
-  #####
-  # add convenience module alias in plural
-  #   e.g. lets you use include CategoryDb::Models
-  Models = Model
 
   def self.create
     CreateDb.new.up
-    ## WorldDb::Model::Prop.create!( key: 'db.schema.world.version', value: VERSION )
+    ConfDb::Model::Prop.create!( key: 'db.schema.category.version', value: VERSION )
   end
 
   # delete ALL records (use with care!)

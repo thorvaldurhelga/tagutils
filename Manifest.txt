@@ -8,8 +8,10 @@ lib/tagutils/models/categorization.rb
 lib/tagutils/models/category.rb
 lib/tagutils/models/tag.rb
 lib/tagutils/models/tagging.rb
+lib/tagutils/readers/tag.rb
 lib/tagutils/schema_categories.rb
 lib/tagutils/schema_tags.rb
 lib/tagutils/version.rb
 test/helper.rb
 test/test_models.rb
+test/test_tag_reader.rb

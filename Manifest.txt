@@ -13,5 +13,6 @@ lib/tagutils/schema_categories.rb
 lib/tagutils/schema_tags.rb
 lib/tagutils/version.rb
 test/helper.rb
+test/tags.1.yml
 test/test_models.rb
 test/test_tag_reader.rb

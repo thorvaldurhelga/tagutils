@@ -67,6 +67,31 @@ Movie.with_category( 'doc' )
 # e.g. scope :with_category, ->(category_key){ joins(:categories).where('categories.key' => category_key) }
 ~~~
 
+### Reader
+
+The `TagReader` lets you read plain text fixtures (data sets). Example:
+
+~~~
+tags.1.yml:
+-----------
+
+# organizations
+
+orgs: un, g5, g8, g20, eu, commonwealth, mercosur, nafta
+football: fifa, uefa, afc, ofc, caf, csf, concacaf
+
+# national regions
+
+brasil: s|South, se|Southeast, co|Centerwest, ne|Northeast, n|North
+~~~
+
+To read the tags use:
+
+~~~
+TagReader.new( <include_path>).read( `tags.1` )
+~~~
+
+
 
 ## Real World Usage
 

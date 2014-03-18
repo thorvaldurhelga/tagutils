@@ -6,7 +6,9 @@ lib/tagutils.rb
 lib/tagutils/active_record.rb
 lib/tagutils/models/categorization.rb
 lib/tagutils/models/category.rb
+lib/tagutils/models/category_comp.rb
 lib/tagutils/models/tag.rb
+lib/tagutils/models/tag_comp.rb
 lib/tagutils/models/tagging.rb
 lib/tagutils/readers/tag.rb
 lib/tagutils/schema_categories.rb

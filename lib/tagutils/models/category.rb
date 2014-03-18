@@ -23,19 +23,9 @@ class Category < ActiveRecord::Base
   before_save :on_before_save
 
   def on_before_save
-    # replace space with dash e.g. north america becomes north-america and so on
-    self.slug = key.gsub( ' ', '-' )
+    # replace space with dash e.g. north america becomes north_america and so on
+    self.slug = key.gsub( ' ', '_' )
   end
-
-
-  ############################################################################
-  # alias for name (remove! add depreciated api call) ?? why? why not??
-
-  def title()       name;              end
-  def title=(value) self.name = value; end
-  
-  scope :by_title, -> { order( 'name desc' ) }  ### depreciated ??? - use by_name
-
 
 end   # class Category
 

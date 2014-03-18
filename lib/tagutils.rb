@@ -8,41 +8,14 @@ require 'props/db'  # note: also use ConfDb (ConfDb::Model::Prop etc.)
 require 'logutils'
 require 'textutils'
 
-####
-# fix: move Prop.create_from_fixture to props or textutils ?
+#########
+# fix/todo:
+#   move props/db  - Props.create_from_fixture! to textutils/db
+#    require 'textutils/db'
 
-module ConfDb
-  module Model
+#######################
+# fix/remove once removed from HashReaderV2
 
-class Prop
-
-  def self.create_from_fixture!( name, path )
-    key   = "db.#{fixture_name_to_prop_key(name)}.version"
-    
-    value = "txt.#{File.mtime(path).strftime('%Y.%m.%d')}"
-    
-    Prop.create!( key: key, value: value )
-  end
-
-private
-
-  # helper
-  #   change at/2012_13/bl           to at.2012/13.bl
-  #    or    quali_2012_13_europe_c  to quali.2012/13.europe.c
-  
-  def self.fixture_name_to_prop_key( name )
-    prop_key = name.gsub( '/', '.' )
-    prop_key = prop_key.gsub( /(\d{4})_(\d{2})/, '\1/\2' )  # 2012_13 => 2012/13
-    prop_key = prop_key.gsub( '_', '.' )
-    prop_key
-  end
-
-end  # class Prop
-
-  end # module Model
-end # module ConfDb
-
-#### fix!!!!!!!!  - remove ref from WorldDb; use "new" ConfDb ns
 module WorldDb
   module Model
     Prop = ConfDb::Model::Prop
@@ -51,17 +24,21 @@ module WorldDb
 end
 
 
+
 # our own code
 
 require 'tagutils/version'  # let it always go first
 
 require 'tagutils/schema_tags'
 require 'tagutils/models/tag'
+require 'tagutils/models/tag_comp'
 require 'tagutils/models/tagging'
 
 require 'tagutils/schema_categories'
 require 'tagutils/models/category'
+require 'tagutils/models/category_comp'
 require 'tagutils/models/categorization'
+
 
 module TagDb
   VERSION = TagUtils::VERSION
@@ -115,8 +92,8 @@ module TagDb
   end
 
   def self.tables
-    puts "#{Model::Tag.count} tags"
-    puts "#{Model::Tagging.count} taggings"
+    puts "  #{Model::Tag.count} tags"
+    puts "  #{Model::Tagging.count} taggings"
   end
 
 end # module TagDb
@@ -137,12 +114,10 @@ module CategoryDb
   end
 
   def self.tables
-    puts "#{Model::Category.count} categories"
-    puts "#{Model::Categorization.count} categorizations"
+    puts "  #{Model::Category.count} categories"
+    puts "  #{Model::Categorization.count} categorizations"
   end
 end # module CategoryDb
-
-CatDb = CategoryDb  # for conveniene add alias for CatDb
 
 
 ####

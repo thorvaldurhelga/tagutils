@@ -17,7 +17,6 @@ class TestTagReader < MiniTest::Unit::TestCase
     
     reader = TagDb::TagReader.new( include_path )
     reader.read( 'tags.1' )
-
   end
 
 

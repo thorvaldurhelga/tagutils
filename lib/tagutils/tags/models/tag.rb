@@ -29,5 +29,11 @@ class Tag < ActiveRecord::Base
 
 end   # class Tag
 
-  end # module TagDb
-end # module Model
+  end # module Model
+
+  #####
+  # add convenience module alias in plural
+  #   e.g. lets you use include TagDb::Models
+  Models = Model
+
+end # module TagDb

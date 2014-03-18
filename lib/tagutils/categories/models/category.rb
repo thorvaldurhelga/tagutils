@@ -30,5 +30,11 @@ class Category < ActiveRecord::Base
 end   # class Category
 
 
-  end # module CategoryDb
-end # module Model
+  end # module Model
+
+  #####
+  # add convenience module alias in plural
+  #   e.g. lets you use include CategoryDb::Models
+  Models = Model
+
+end # module CategoryDb

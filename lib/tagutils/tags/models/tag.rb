@@ -9,7 +9,7 @@ class Tag < ActiveRecord::Base
 
     ## nb: only allow spaces and underscore inbetween;
     ##  do NOT allow digit as first char for now
-    validates :key,  :format => { :with    => /^([a-z]|[a-z][a-z0-9_ ]*[a-z0-9])$/,
+    validates :key,  :format => { :with    => /\A([a-z]|[a-z][a-z0-9_ ]*[a-z0-9])\z/,
                                   :message => 'expected one or more lowercase letters a-z or 0-9 digits or space or underscore' }
 
     scope :by_key,   -> { order( 'key desc' )  }
